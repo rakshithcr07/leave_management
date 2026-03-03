@@ -56,13 +56,11 @@ Content-Type: application/json
 
 
 ### Get employee ID (copy the ID)
-GET {{baseUrl}}/leave/Employees?$select=ID,employeeCode,email,manager_ID&$filter=email eq 'employee1@test.com'
-Authorization: {{managerAuth}}
+GET {{baseUrl}}/leave/Employees
 
 
 ### Create Leave Type (as manager)
 POST {{baseUrl}}/leave/LeaveTypes
-Authorization: {{managerAuth}}
 Content-Type: application/json
 
 {

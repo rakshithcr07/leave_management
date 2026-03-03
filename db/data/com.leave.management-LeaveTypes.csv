@@ -1,0 +1,6 @@
+code,name,description
+CL,Casual Leave,Casual leave for personal work
+SL,Sick Leave,Leave for illness/medical reasons
+PL,Privilege Leave,Earned leave for vacations
+ML,Maternity Leave,Maternity leave as per policy
+LOP,Loss Of Pay,Unpaid leave when balance insufficient
