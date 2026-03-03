@@ -1,0 +1,6 @@
+ID,employeeCode,firstName,lastName,email,manager_ID,createdAt,createdBy,modifiedAt,modifiedBy
+3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1,MGR001,Manager,One,manager1@test.com,,,,,
+0e0acb21-2e22-4d3a-8f7a-2b7b4c2b1a11,EMP001,Employee,One,employee1@test.com,3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1,,,,
+4b1b1d9f-9e1c-4e0b-b3f9-8c26b4b7d2c4,EMP002,Asha,Kumar,asha.kumar@test.com,3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1,,,,
+86c5d5de-2a6e-4ed6-8f3d-4b5a2d7b0d0f,EMP003,Rahul,Patel,rahul.patel@test.com,3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1,,,,
+2a7bdf3e-5d2c-4bb5-9c1e-1e8c2a3c4d55,EMP004,Neha,Sharma,neha.sharma@test.com,3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1,,,,

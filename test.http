@@ -1,0 +1,129 @@
+
+@baseUrl = http://localhost:4004
+
+
+@employeeAuth = Basic ZW1wbG95ZWUxQHRlc3QuY29tOjEyMzQ1Njc4
+@managerAuth  = Basic bWFuYWdlcjFAdGVzdC5jb206MTIzNDU2Nzg=
+
+### Service document
+GET {{baseUrl}}/leave/Employees
+
+
+### Create manager (as manager)
+POST {{baseUrl}}/leave/Employees
+Authorization: {{managerAuth}}
+Content-Type: application/json
+
+{
+  "employeeCode": "MGR001",
+  "firstName": "Manager",
+  "lastName": "One",
+  "email": "manager1@test.com"
+}
+
+
+### Get manager ID (copy the ID)
+GET {{baseUrl}}/leave/Employees?$select=ID,employeeCode,email&$filter=email eq 'manager1@test.com'
+Authorization: {{managerAuth}}
+
+
+### Create employee and assign manager (as manager)
+# Note: replace manager_ID value with the ID returned from previous request
+POST {{baseUrl}}/leave/Employees
+Authorization: {{managerAuth}}
+Content-Type: application/json
+
+{
+  "employeeCode": "EMP001",
+  "firstName": "Employee",
+  "lastName": "One",
+  "email": "employee1@test.com",
+  "manager_ID": "REPLACE_WITH_MANAGER_ID"
+}
+
+### Create another employee (as manager)
+POST {{baseUrl}}/leave/Employees
+Authorization: {{managerAuth}}
+Content-Type: application/json
+
+{
+  "employeeCode": "EMP005",
+  "firstName": "Dummy",
+  "lastName": "User",
+  "email": "dummy.user@test.com",
+  "manager_ID": "3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1"
+}
+
+
+### Get employee ID (copy the ID)
+GET {{baseUrl}}/leave/Employees?$select=ID,employeeCode,email,manager_ID&$filter=email eq 'employee1@test.com'
+Authorization: {{managerAuth}}
+
+
+### Create Leave Type (as manager)
+POST {{baseUrl}}/leave/LeaveTypes
+Authorization: {{managerAuth}}
+Content-Type: application/json
+
+{
+  "code": "CL",
+  "name": "Casual Leave",
+  "description": "Casual leave"
+}
+
+
+### Get LeaveType ID (copy the ID)
+GET {{baseUrl}}/leave/LeaveTypes?$select=ID,code,name&$filter=code eq 'CL'
+Authorization: {{managerAuth}}
+
+
+### Create Leave Balance for employee (as manager)
+# Note: replace employee_ID and leaveType_ID with IDs returned above
+POST {{baseUrl}}/leave/LeaveBalances
+Authorization: {{managerAuth}}
+Content-Type: application/json
+
+{
+  "employee_ID": "REPLACE_WITH_EMPLOYEE_ID",
+  "leaveType_ID": "REPLACE_WITH_LEAVETYPE_ID",
+  "year": 2026,
+  "allocated": 12,
+  "used": 0
+}
+
+
+### Create Leave Request (as employee)
+# Note: replace leaveType_ID with the ID returned above
+POST {{baseUrl}}/leave/LeaveRequests
+Authorization: {{employeeAuth}}
+Content-Type: application/json
+
+{
+  "leaveType_ID": "REPLACE_WITH_LEAVETYPE_ID",
+  "startDate": "2026-03-10",
+  "endDate": "2026-03-12",
+  "days": 3
+}
+
+
+### Get latest leave request ID for employee (copy the ID)
+GET {{baseUrl}}/leave/LeaveRequests?$select=ID,status,startDate,endDate,createdAt&$orderby=createdAt desc&$top=5
+Authorization: {{employeeAuth}}
+
+
+### Approve Leave Request (as manager)
+# Note: replace ID with LeaveRequest ID from previous request
+PATCH {{baseUrl}}/leave/LeaveRequests(REPLACE_WITH_LEAVEREQUEST_ID)
+Authorization: {{managerAuth}}
+Content-Type: application/json
+
+{
+  "status": "Approved",
+  "managerComment": "Approved"
+}
+
+
+### Negative: Employee tries to delete an Approved request (should fail)
+DELETE {{baseUrl}}/leave/LeaveRequests(REPLACE_WITH_LEAVEREQUEST_ID)
+Authorization: {{employeeAuth}}
+
