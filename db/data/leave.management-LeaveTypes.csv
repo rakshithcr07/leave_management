@@ -1,1 +1,6 @@
 ID,code,name,description,createdAt,createdBy,modifiedAt,modifiedBy
+6f7c2d9a-1a7b-4d6f-9c4a-1d9d7e5a2b10,CL,Casual Leave,Casual leave for personal work,,,,
+f0a61a5b-42a3-4d3d-8b33-0e0a9d1c2b30,SL,Sick Leave,Leave for illness/medical reasons,,,,
+1b3f5c8d-9a2e-4b8f-9d9c-2a4b6c8d0e12,PL,Privilege Leave,Earned/privilege leave for planned vacations,,,,
+9c2e6b1a-7d4f-4b2c-8f1a-3c5d7e9f1a23,ML,Maternity Leave,Maternity leave as per policy,,,,
+3d8a2c7b-6e1f-4c9a-8b6d-4e7f9a1b2c34,LOP,Loss Of Pay,Unpaid leave when balance is insufficient,,,,
