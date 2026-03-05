@@ -1,9 +1,48 @@
 
 @baseUrl = http://localhost:4004
 
-
 @employeeAuth = Basic ZW1wbG95ZWUxQHRlc3QuY29tOjEyMzQ1Njc4
 @managerAuth  = Basic bWFuYWdlcjFAdGVzdC5jb206MTIzNDU2Nzg=
+
+
+
+
+### Get Employees
+GET {{baseUrl}}/leave/Employees
+x-user: employee1@test.com
+
+
+### Get Leave Types
+GET {{baseUrl}}/leave/LeaveTypes
+x-user: employee1@test.com
+
+
+### Get Leave Balances
+GET {{baseUrl}}/leave/LeaveBalances
+x-user: employee1@test.com
+
+
+### Create Leave Request
+POST {{baseUrl}}
+Content-Type: application/json
+x-user: employee1@test.com
+
+{
+  "leaveType_ID": "11111111-1111-1111-1111-111111111111",
+  "startDate": "2026-03-10",
+  "endDate": "2026-03-12",
+  "days": 3
+}
+
+
+### Get Leave Requests
+GET {{baseUrl}}/leave/LeaveRequests
+x-user: employee1@test.com
+
+
+
+
+
 
 ### Service document
 GET {{baseUrl}}/leave/Employees
@@ -54,13 +93,49 @@ Content-Type: application/json
   "manager_ID": "3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1"
 }
 
+### Create Leave Request (as employee)
+# Note: replace leaveType_ID with the ID returned above
+POST {{baseUrl}}/leave/LeaveRequests
+Authorization: {{employeeAuth}}
+Content-Type: application/json
+
+{
+  "ID": "22222222-2222-2222-2222-222222222222",
+  "employee_ID": "0e0acb21-2e22-4d3a-8f7a-2b7b4c2b1a11",
+  "manager_ID": "3f0b6d41-5f5d-4d93-9f58-69c3a0a0c3b1",
+  "leaveType_ID": "11111111-1111-1111-1111-111111111111",
+  "startDate": "2026-03-10",
+  "endDate": "2026-03-12",
+  "days": 3,
+  "status": "Pending",
+  "managerComment": null,
+  "decisionAt": null
+}
+
+### Get Leave Balances
+GET {{baseUrl}}/leave/LeaveBalances
+x-user: employee1@test.com
+
+### Create Leave Request
+POST {{baseUrl}}/leave/LeaveRequests
+Content-Type: application/json
+x-user: employee1@test.com
+
+{
+  "leaveType_ID": "11111111-1111-1111-1111-111111111111",
+  "startDate": "2026-03-10",
+  "endDate": "2026-03-12",
+  "days": 3
+}
 
 ### Get employee ID (copy the ID)
-GET {{baseUrl}}/leave/Employees
+GET {{baseUrl}}/leave/Employees?$select=ID,employeeCode,email,manager_ID&$filter=email eq 'employee1@test.com'
+Authorization: {{managerAuth}}
 
 
 ### Create Leave Type (as manager)
 POST {{baseUrl}}/leave/LeaveTypes
+Authorization: {{managerAuth}}
 Content-Type: application/json
 
 {
