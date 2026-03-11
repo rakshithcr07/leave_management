@@ -1,0 +1,73 @@
+<mvc:View
+    controllerName="leavemanagement.controller.EmployeeDashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout">
+    <Page id="idEmpPage" title="Leave Management">
+        <content>
+            <layout:HorizontalLayout id="idBalanceLayout" class="sapUiMediumMargin">
+                <GenericTile id="idTileAnnual" header="Annual Leave" subheader="Remaining" class="sapUiTinyMargin">
+                    <TileContent id="idC1" footer="Days">
+                        <NumericContent id="idN1" 
+                            value="{userSession>/annualBalance}" 
+                            valueColor="Good" />
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile id="idTileSick" header="Sick Leave" subheader="Used" class="sapUiTinyMargin">
+                    <TileContent id="idC2" footer="Days">
+                        <NumericContent id="idN2" 
+                            value="{userSession>/sickUsed}" 
+                            valueColor="Critical" />
+                    </TileContent>
+                </GenericTile>
+            </layout:HorizontalLayout>
+
+            <Table id="idEmpHistoryTable" 
+                   items="{ 
+                       path: '/LeaveRequests', 
+                       parameters: { 
+                           $expand: 'leaveType', 
+                           $$updateGroupId: 'leaveUpdateGroup' 
+                       } 
+                   }">
+                <headerToolbar>
+                    <OverflowToolbar id="idOT">
+                        <Title id="idT" text="Leave History" />
+                        <ToolbarSpacer id="idS" />
+                        <Button id="idNewBtn" text="New Request" type="Emphasized" icon="sap-icon://add" press=".onOpenRequestDialog" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="c1"><Text text="Type" /></Column>
+                    <Column id="c2"><Text text="Dates" /></Column>
+                    <Column id="c3"><Text text="Days" /></Column>
+                    <Column id="c4"><Text text="Status" /></Column>
+                    <Column id="c5" width="3rem" hAlign="End"><Text text="" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="cli">
+                        <cells>
+                            <Text text="{leaveType/name}" />
+                            
+                            <Text text="{startDate} to {endDate}" />
+                            
+                            <Text text="{days} Days" />
+                            
+                            <ObjectStatus 
+                                text="{status}" 
+                                state="{= ${status} === 'Approved' ? 'Success' : (${status} === 'Rejected' ? 'Error' : 'Warning') }" />
+                            
+                            <Button id="idDeleteBtn"
+                                    icon="sap-icon://delete" 
+                                    type="Transparent" 
+                                    press=".onDeleteRequest"
+                                    visible="{= ${status} === 'Pending'}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

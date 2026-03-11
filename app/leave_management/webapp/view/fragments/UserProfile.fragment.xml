@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ResponsivePopover
+        id="idUserProfilePopover"
+        title="User Settings"
+        placement="Bottom"
+        contentWidth="200px">
+        <content>
+            <VBox alignItems="Center" class="sapUiSmallMargin">
+                <Avatar src="sap-icon://customer" displaySize="L" class="sapUiSmallMarginBottom" />
+                <Title id="idUserName" text="Asha Kumar" titleStyle="H4" />
+                <Text id="idUserRole" text="Senior Associate" />
+                <List id="idUserActions" class="sapUiSmallMarginTop">
+                    <StandardListItem title="My Profile" icon="sap-icon://person-placeholder" />
+                    <StandardListItem title="Settings" icon="sap-icon://settings" />
+                    <StandardListItem title="Logout" icon="sap-icon://log" type="Navigation" press=".onLogout" />
+                </List>
+            </VBox>
+        </content>
+    </ResponsivePopover>
+</core:FragmentDefinition>

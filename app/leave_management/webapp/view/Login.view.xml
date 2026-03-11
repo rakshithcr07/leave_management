@@ -1,0 +1,42 @@
+<mvc:View
+    controllerName="leavemanagement.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core" 
+    displayBlock="true"
+    xmlns="sap.m">
+    <Page id="idLoginPage" showHeader="false">
+        <content>
+            <VBox id="idLoginVBox" 
+                  justifyContent="Center" 
+                  alignItems="Center" 
+                  class="fullHeightVBox">
+                
+                <VBox id="idLoginCard" 
+                      width="400px" 
+                      class="myLoginCard sapUiMediumMargin sapUiContentPadding">
+                    
+                    <core:Icon 
+                        src="sap-icon://travel-request" 
+                        size="3rem" 
+                        color="#0854a0" 
+                        class="sapUiMediumMarginBottom" />
+                    
+                    <Title id="idLoginTitle" text="Corporate Portal" titleStyle="H2" class="sapUiSmallMarginBottom" />
+                    <Text id="idLoginSub" text="Please select your account to continue" class="sapUiMediumMarginBottom" />
+                    
+                    <Button id="idAshaLogin" 
+                            text="Login as Employee (Asha)" 
+                            width="100%" 
+                            type="Emphasized" 
+                            press=".onLoginEmployee" 
+                            class="sapUiSmallMarginBottom" />
+                    
+                    <Button id="idManagerLogin" 
+                            text="Login as Manager" 
+                            width="100%" 
+                            press=".onLoginManager" />
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

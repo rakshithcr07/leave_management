@@ -2,8 +2,7 @@ namespace com.leave.management;
 
 using { cuid, managed } from '@sap/cds/common';
 
-
-type LeaveApprovalStatus      : String enum {
+type LeaveApprovalStatus : String enum {
   Pending;
   Approved;
   Rejected;
@@ -42,4 +41,16 @@ entity LeaveRequests : cuid, managed {
   status         : LeaveApprovalStatus default 'Pending';
   managerComment : String(500);
   decisionAt     : Timestamp;
+  // Composition for attachments
+  attachments    : Composition of many Attachments on attachments.request = $self;
+}
+
+entity Attachments : cuid, managed {
+  request : Association to LeaveRequests;
+  @Core.MediaType: mediaType
+  content   : LargeBinary;
+  @Core.IsMediaType: true
+  mediaType : String;
+  fileName  : String;
+  size      : Integer;
 }

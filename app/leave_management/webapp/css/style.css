@@ -1,0 +1,24 @@
+/* Ensure the full page background is consistent */
+html, body, .sapUiBody {
+    height: 100%;
+    background-color: #f4f7f9 !important;
+}
+
+/* Central Login Card - Using your preferred styles */
+.myLoginCard {
+    background: #ffffff;
+    border-radius: 12px;
+    border-top: 6px solid #0854a0; /* SAP Brand Blue */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Helper to ensure the centering VBox fills the screen */
+.fullHeightVBox {
+    height: 100% !important;
+}
+
+/* Logo or Icon spacing */
+.loginLogo {
+    margin-bottom: 2rem;
+}

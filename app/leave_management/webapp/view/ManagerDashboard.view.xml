@@ -1,0 +1,75 @@
+<mvc:View
+    controllerName="leavemanagement.controller.ManagerDashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Page id="idManagerPage" title="Manager Approval Portal">
+        <content>
+            <Table id="idMgrApprovalTable" 
+                   items="{
+                       path: '/LeaveRequests', 
+                       parameters: {
+                           $expand: 'employee,leaveType',
+                           $$updateGroupId: 'leaveUpdateGroup'
+                       }
+                   }">
+                <headerToolbar>
+                    <OverflowToolbar id="idMgrTableToolbar">
+                        <Title id="idMgrTableTitle" text="Team Requests" />
+                        <ToolbarSpacer id="idMgrToolbarSpacer" />
+                        <Label id="idLblStatusFilter" text="Filter by Status:" />
+                        <Select id="idStatusFilter" change=".onStatusFilterChange" width="150px">
+                            <core:Item id="idItemAll" key="All" text="Show All" />
+                            <core:Item id="idItemPending" key="Pending" text="Pending" />
+                            <core:Item id="idItemApproved" key="Approved" text="Approved" />
+                            <core:Item id="idItemRejected" key="Rejected" text="Rejected" />
+                        </Select>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="idMgrColEmp"><Text text="Employee" /></Column>
+                    <Column id="idMgrColType"><Text text="Type" /></Column>
+                    <Column id="idMgrColDays"><Text text="Days" /></Column>
+                    <Column id="idMgrColDates"><Text text="Period" /></Column>
+                    <Column id="idMgrColAction" hAlign="End"><Text text="Decision" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="idMgrRow">
+                        <cells>
+                            <VBox id="idMgrVBox">
+                                <Text id="idMgrTxtName" text="{employee/name}" />
+                                <Label id="idMgrTxtCode" text="{employee_ID}" design="Bold" class="sapUiTinyMarginTop" />
+                            </VBox>
+
+                            <Text id="idMgrTxtType" text="{leaveType/name}" />
+
+                            <Text text="{days} Days" />
+
+                            <Text id="idMgrTxtDates" text="{startDate} to {endDate}" />
+
+                            <HBox id="idMgrActionBox" justifyContent="End">
+                                <Button id="idMgrAccept" 
+                                        icon="sap-icon://accept" 
+                                        type="Accept" 
+                                        press=".onApprove" 
+                                        visible="{= ${status} === 'Pending' }" 
+                                        class="sapUiTinyMarginEnd" />
+                                
+                                <Button id="idMgrReject" 
+                                        icon="sap-icon://decline" 
+                                        type="Reject" 
+                                        press=".onReject" 
+                                        visible="{= ${status} === 'Pending' }" />
+                                
+                                <ObjectStatus id="idMgrStatusObj" 
+                                              text="{status}" 
+                                              state="{= ${status} === 'Approved' ? 'Success' : (${status} === 'Rejected' ? 'Error' : 'None') }" 
+                                              visible="{= ${status} !== 'Pending' }" />
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

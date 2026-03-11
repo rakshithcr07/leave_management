@@ -1,0 +1,32 @@
+<mvc:View
+    controllerName="leavemanagement.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+    <Shell id="idRootShell">
+        <tnt:ToolPage id="idToolPage">
+            <tnt:header>
+                <tnt:ToolHeader id="idToolHeader">
+                    <Title id="idAppTitle" text="Corporate Leave Portal" wrapping="false" />
+                    <ToolbarSpacer id="idSpacer" />
+                    
+                    <Button id="idNavEmpBtn" text="My Leave" type="Transparent" press=".onNavToEmployee" 
+                            visible="{userSession>/isLoggedIn}" />
+                    
+                    <Button id="idNavMgrBtn" text="Manager Workspace" type="Transparent" press=".onNavToManager" 
+                            visible="{= ${userSession>/role} === 'Manager' }" />
+                    
+                    <Button id="idUserBtn" icon="sap-icon://customer" type="Transparent" press=".onShowUserProfile" 
+                            visible="{userSession>/isLoggedIn}" />
+                            
+                    <Button id="idLogoutBtn" icon="sap-icon://log" text="Logout" type="Transparent" press=".onLogout" 
+                            visible="{userSession>/isLoggedIn}" />
+                </tnt:ToolHeader>
+            </tnt:header>
+            <tnt:mainContents>
+                <App id="app" />
+            </tnt:mainContents>
+        </tnt:ToolPage>
+    </Shell>
+</mvc:View>

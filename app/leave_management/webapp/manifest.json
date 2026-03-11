@@ -1,0 +1,47 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "leavemanagement",
+    "type": "application",
+    "dataSources": {
+      "mainService": {
+        "uri": "/leave/",
+        "type": "OData",
+        "settings": { "odataVersion": "4.0" }
+      }
+    }
+  },
+  "sap.ui5": {
+    "rootView": { "viewName": "leavemanagement.view.App", "type": "XML", "async": true, "id": "app" },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": { "sap.m": {}, "sap.ui.core": {}, "sap.tnt": {}, "sap.ui.layout": {}, "sap.f": {} }
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "settings": { "operationMode": "Server", "groupId": "$auto", "updateGroupId": "leaveUpdateGroup" }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "leavemanagement.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        { "name": "RouteLogin", "pattern": "", "target": ["TargetLogin"] },
+        { "name": "RouteEmployee", "pattern": "employee/{employeeId}", "target": ["TargetEmployeeDashboard"] },
+        { "name": "RouteManager", "pattern": "manager", "target": ["TargetManagerDashboard"] }
+      ],
+      "targets": {
+        "TargetLogin": { "viewName": "Login", "viewLevel": 0 },
+        "TargetEmployeeDashboard": { "viewName": "EmployeeDashboard", "viewLevel": 1 },
+        "TargetManagerDashboard": { "viewName": "ManagerDashboard", "viewLevel": 1 }
+      }
+    }
+  }
+}

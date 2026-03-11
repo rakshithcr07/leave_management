@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="idRejectDialog" title="Reject Leave Request" type="Message" state="Error">
+        <content>
+            <VBox id="idRejectVbox" class="sapUiSmallMargin">
+                <Label id="idRejectCommentLabel" text="Please provide a reason for rejection:" required="true" />
+                <TextArea 
+                    id="idRejectComment" 
+                    width="100%" 
+                    rows="4" 
+                    placeholder="Enter reason here..." 
+                    liveChange=".onRejectCommentLiveChange" />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button id="idConfirmRejectBtn" text="Confirm Rejection" type="Reject" press=".onConfirmReject" enabled="false" />
+        </beginButton>
+        <endButton>
+            <Button id="idCancelRejectBtn" text="Cancel" press=".onCloseRejectDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
